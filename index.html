@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Upgrade Calculators</title>
-  <style>
+<style>
     body {
       font-family: Arial, sans-serif;
       background-color: #121212;
@@ -67,84 +67,86 @@
   </style>
 </head>
 <body>
+  <div class="calculators-container">
+    <!-- Castle Calculator -->
+    <div class="container">
+      <h2>Castle Time & Cost Calculator</h2>
+      <label for="startLevel">Start Level (0-64):</label>
+      <input type="number" id="startLevel" min="0" max="64" required>
 
-  <!-- Castle Calculator -->
-  <div class="container">
-    <h2>Castle Time & Cost Calculator</h2>
-    <label for="startLevel">Start Level (1-64):</label>
-    <input type="number" id="startLevel" min="0" max="64">
+      <label for="endLevel">End Level (1-65):</label>
+      <input type="number" id="endLevel" min="1" max="65" required>
 
-    <label for="endLevel">End Level (2-65):</label>
-    <input type="number" id="endLevel" min="1" max="65">
+      <label for="buff">% Build Speed Buff:</label>
+      <input type="text" id="buff" placeholder="e.g. 0, 25, 104.25" value="0">
 
-    <label for="buff">% Build Speed Buff:</label>
-    <input type="text" id="buff" placeholder="e.g. 0, 25, 104.25" value="0">
+      <button onclick="calculateTime()">Calculate Castle Time & Cost</button>
+      <div class="result" id="result"></div>
+    </div>
 
-    <button onclick="calculateTime()">Calculate Castle Time & Cost</button>
-    <div class="result" id="result"></div>
-  </div>
+    <!-- Hero Research Calculator -->
+    <div class="container">
+      <h2>Hero Research Calculator</h2>
+      <label for="startHeroLevel">Start Level (0-79):</label>
+      <input type="number" id="startHeroLevel" min="0" max="79" required>
 
-  <!-- Hero Research Calculator -->
-  <div class="container">
-    <h2>Hero Research Calculator</h2>
-    <label for="startHeroLevel">Start Level (0-79):</label>
-    <input type="number" id="startHeroLevel" min="0" max="79">
+      <label for="endHeroLevel">End Level (1-80):</label>
+      <input type="number" id="endHeroLevel" min="1" max="80" required>
 
-    <label for="endHeroLevel">End Level (1-80):</label>
-    <input type="number" id="endHeroLevel" min="1" max="80">
+      <label for="heroBuff">% Research Buff:</label>
+      <input type="text" id="heroBuff" placeholder="e.g. 0, 25, 104.25" value="0">
 
-    <label for="heroBuff">% Research Buff:</label>
-    <input type="text" id="heroBuff" placeholder="e.g. 0, 25, 104.25" value="0">
+      <label class="checkbox-label">
+        <input type="checkbox" id="discountCheckbox"> Apply 15% Sait Cost Discount
+      </label>
 
-    <label class="checkbox-label">
-      <input type="checkbox" id="discountCheckbox"> Apply 15% Sait Cost Discount
-    </label>
+      <button onclick="calculateHeroTime()">Calculate Research Time & Cost</button>
+      <div class="result" id="heroResult"></div>
+    </div>
 
-    <button onclick="calculateHeroTime()">Calculate Research Time & Cost</button>
-    <div class="result" id="heroResult"></div>
-  </div>
+    <!-- Troop Research Calculator -->
+    <div class="container">
+      <h2>Troop Research Calculator</h2>
+      <label for="startTroopLevel">Start Level (0-39):</label>
+      <input type="number" id="startTroopLevel" min="0" max="39" required>
 
-  <!-- Troop Research Calculator -->
-  <div class="container">
-    <h2>Troop Research Calculator</h2>
-    <label for="startTroopLevel">Start Level (0-39):</label>
-    <input type="number" id="startTroopLevel" min="0" max="39">
+      <label for="endTroopLevel">End Level (1-40):</label>
+      <input type="number" id="endTroopLevel" min="1" max="40" required>
 
-    <label for="endTroopLevel">End Level (1-40):</label>
-    <input type="number" id="endTroopLevel" min="1" max="40">
+      <label for="troopBuff">% Research Buff:</label>
+      <input type="text" id="troopBuff" placeholder="e.g. 0, 25, 104.25" value="0">
 
-    <label for="troopBuff">%  Research Buff:</label>
-    <input type="text" id="troopBuff" placeholder="e.g. 0, 25, 104.25" value="0">
+      <label class="checkbox-label">
+        <input type="checkbox" id="troopDiscountCheckbox"> Apply 15% Sait Cost Discount
+      </label>
 
-    <label class="checkbox-label">
-      <input type="checkbox" id="troopDiscountCheckbox"> Apply 15% Sait Cost Discount
-    </label>
-
-    <button onclick="calculateTroopTime()">Calculate Research Time & Cost</button>
-    <div class="result" id="troopResult"></div>
+      <button onclick="calculateTroopTime()">Calculate Research Time & Cost</button>
+      <div class="result" id="troopResult"></div>
+    </div>
   </div>
 
   <script>
     // Castle data
     const times =[
-    0, 240, 600, 1440, 2880, 4230, 11880, 20760, 32040, 45600, 56880, 69360, 82920, 
-    102750, 117300, 132900, 149400, 166650, 184950, 204000, 224100, 244950, 266700, 
-    298650, 332550, 368100, 405450, 444450, 485400, 528150, 572550, 618750, 666750, 
-    716550, 768150, 821400, 876600, 933450, 992100, 1052640, 1296000, 1598400, 
-    2116800, 2721600, 3412800, 4190400, 5054400, 6004800, 7128000, 8424000, 8942400, 
-    9504000, 10108800, 10756800, 11448000, 12182400, 12960000, 13780800, 14644800, 
-    15552000, 16502400, 17496000, 18532800, 19612800, 20736000
-]
+      0, 240, 600, 1440, 2880, 4230, 11880, 20760, 32040, 45600, 56880, 69360, 82920, 
+      102750, 117300, 132900, 149400, 166650, 184950, 204000, 224100, 244950, 266700, 
+      298650, 332550, 368100, 405450, 444450, 485400, 528150, 572550, 618750, 666750, 
+      716550, 768150, 821400, 876600, 933450, 992100, 1052640, 1296000, 1598400, 
+      2116800, 2721600, 3412800, 4190400, 5054400, 6004800, 7128000, 8424000, 8942400, 
+      9504000, 10108800, 10756800, 11448000, 12182400, 12960000, 13780800, 14644800, 
+      15552000, 16502400, 17496000, 18532800, 19612800, 20736000
+    ]
 
     const costs = [
-    0, 320, 460, 670, 920, 1100, 1900, 3400, 5400, 7700, 10000, 13000, 15000, 
-    18000, 21000, 25000, 30000, 35000, 40000, 47000, 54000, 62000, 72000, 84000, 
-    99000, 120000, 130000, 150000, 180000, 200000, 230000, 260000, 290000, 330000, 
-    370000, 410000, 460000, 510000, 570000, 630000, 720000, 888000, 1176000, 
-    1512000, 1896000, 2430000, 3033000, 3723000, 4562000, 5560000, 5902000, 
-    6273000, 6672000, 7099000, 7556000, 8040000, 8554000, 9095000, 9666000, 
-    10264000, 10892000, 11547000, 12232000, 12944000, 13686000
-];
+      0, 320, 460, 670, 920, 1100, 1900, 3400, 5400, 7700, 10000, 13000, 15000, 
+      18000, 21000, 25000, 30000, 35000, 40000, 47000, 54000, 62000, 72000, 84000, 
+      99000, 120000, 130000, 150000, 180000, 200000, 230000, 260000, 290000, 330000, 
+      370000, 410000, 460000, 510000, 570000, 630000, 720000, 888000, 1176000, 
+      1512000, 1896000, 2430000, 3033000, 3723000, 4562000, 5560000, 5902000, 
+      6273000, 6672000, 7099000, 7556000, 8040000, 8554000, 9095000, 9666000, 
+      10264000, 10892000, 11547000, 12232000, 12944000, 13686000
+    ];
+
     // Hero data
     const heroTimes = [
       480, 900, 1200, 2400, 3600, 4800, 7200, 9600, 12000, 13200, 14400, 16200, 17400,
@@ -169,7 +171,7 @@
       6600000, 7000000, 7300000
     ];
 
-    // Corrected Troop data (fixed the cost for level 14)
+    // Troop data
     const troopTimes = [
       600, 960, 1560, 2340, 3900, 5460, 7800, 10080, 13200, 16320,
       21000, 25680, 31080, 38100, 45120, 54420, 64560, 76980, 93300, 108840,
@@ -178,130 +180,134 @@
     ];
 
     const troopCosts = [
-  800, 1200, 2000, 3000, 5000, 7000, 10000, 13000, 17000, 21000,
-  27000, 33000, 40000, 49000, 58000, 70000, 83000, 99000, 120000, 140000,
-  160000, 200000, 230000, 270000, 330000, 390000, 470000, 560000, 670000, 810000,
-  998000, 1208000, 1462000, 1769000, 2140000, 2590000, 3134000, 3792000, 4588000, 5552000
-];
+      800, 1200, 2000, 3000, 5000, 7000, 10000, 13000, 17000, 21000,
+      27000, 33000, 40000, 49000, 58000, 70000, 83000, 99000, 120000, 140000,
+      160000, 200000, 230000, 270000, 330000, 390000, 470000, 560000, 670000, 810000,
+      998000, 1208000, 1462000, 1769000, 2140000, 2590000, 3134000, 3792000, 4588000, 5552000
+    ];
 
+    function validateInputs(startInput, endInput, buffInput, minStart, maxEnd, isBuffRequired = false) {
+      const start = parseInt(startInput.value);
+      const end = parseInt(endInput.value);
+      const buff = parseFloat(buffInput.value.replace(',', '.')) || 0;
+
+      if (!startInput.value || !endInput.value || (isBuffRequired && !buffInput.value)) {
+        return { valid: false, message: 'Please fill in all required fields.' };
+      }
+
+      if (isNaN(start) || isNaN(end) || start < minStart || end > maxEnd || start >= end) {
+        return { valid: false, message: `Please enter valid level inputs (${minStart}-${maxEnd}).` };
+      }
+
+      if (buff < 0) {
+        return { valid: false, message: 'Speed buff cannot be negative.' };
+      }
+
+      return { valid: true, start, end, buff };
+    }
 
     function calculateTime() {
-      const startLevel = parseInt(document.getElementById('startLevel').value) || 0;
-      const endLevel = parseInt(document.getElementById('endLevel').value) || 1;
-      const buffInput = document.getElementById('buff').value.replace(',', '.');
-      const buff = parseFloat(buffInput) || 0;
+      const validation = validateInputs(
+        document.getElementById('startLevel'),
+        document.getElementById('endLevel'),
+        document.getElementById('buff'),
+        0,
+        65
+      );
 
-      if (isNaN(startLevel) || isNaN(endLevel) || startLevel < 0 || endLevel > 65 || startLevel >= endLevel || buff < 0) {
-        document.getElementById('result').textContent = 'Please enter valid inputs for Castle calculation.';
+      if (!validation.valid) {
+        document.getElementById('result').textContent = validation.message;
         return;
       }
 
       let totalTime = 1;
       let totalCost = 0;
 
-      for (let i = startLevel; i < endLevel; i++) {
-        totalTime += times[i] / (1 + buff / 100);
+      for (let i = validation.start; i < validation.end; i++) {
+        totalTime += times[i] / (1 + validation.buff / 100);
         totalCost += costs[i];
       }
 
-      const days = Math.floor(totalTime / 86400);
-      const hours = Math.floor((totalTime % 86400) / 3600);
-      const minutes = Math.floor((totalTime % 3600) / 60);
-      const totalHours = (totalTime / 3600).toFixed(2);
-
-      document.getElementById('result').innerHTML =
-        `Total  Build Time: ${days}d ${hours}h ${minutes}m<br>` +
-        `OR ~${totalHours} hours<br>` +
-        `Total Cost: ${totalCost.toLocaleString()} lumber`;
+      displayResult(totalTime, totalCost, 'result');
     }
 
     function calculateHeroTime() {
-      const start = parseInt(document.getElementById('startHeroLevel').value) || 0;
-      const end = parseInt(document.getElementById('endHeroLevel').value) || 1;
-      const buffInput = document.getElementById('heroBuff').value.replace(',', '.');
-      const buff = parseFloat(buffInput) || 0;
-      const discount = document.getElementById('discountCheckbox').checked;
+      const validation = validateInputs(
+        document.getElementById('startHeroLevel'),
+        document.getElementById('endHeroLevel'),
+        document.getElementById('heroBuff'),
+        0,
+        80
+      );
 
-      if (isNaN(start) || isNaN(end) || start < 0 || end > 80 || start >= end) {
-        document.getElementById('heroResult').textContent = 'Please enter valid level inputs for Hero Research.';
-        return;
-      }
-
-      if (buff < 0) {
-        document.getElementById('heroResult').textContent = 'Research speed buff cannot be negative.';
+      if (!validation.valid) {
+        document.getElementById('heroResult').textContent = validation.message;
         return;
       }
 
       let totalTime = 0;
       let totalCost = 0;
 
-      for (let i = start; i < end; i++) {
-        totalTime += heroTimes[i] / (1 + buff / 100);
+      for (let i = validation.start; i < validation.end; i++) {
+        totalTime += heroTimes[i] / (1 + validation.buff / 100);
         totalCost += heroCosts[i];
       }
 
-      if (discount) {
+      if (document.getElementById('discountCheckbox').checked) {
         totalCost = Math.round(totalCost * 0.85);
       }
 
-      const days = Math.floor(totalTime / 86400);
-      const hours = Math.floor((totalTime % 86400) / 3600);
-      const minutes = Math.floor((totalTime % 3600) / 60);
-      const totalHours = (totalTime / 3600).toFixed(2);
-
-      document.getElementById('heroResult').innerHTML =
-        `Total  Research Time: ${days}d ${hours}h ${minutes}m<br>` +
-        `OR ~${totalHours} hours<br>` +
-        `Total Cost: ${totalCost.toLocaleString()} Resource`;
+      displayResult(totalTime, totalCost, 'heroResult');
     }
 
     function calculateTroopTime() {
-      const start = parseInt(document.getElementById('startTroopLevel').value) || 0;
-      const end = parseInt(document.getElementById('endTroopLevel').value) || 1;
-      const buffInput = document.getElementById('troopBuff').value.replace(',', '.');
-      const buff = parseFloat(buffInput) || 0;
-      const discount = document.getElementById('troopDiscountCheckbox').checked;
+      const validation = validateInputs(
+        document.getElementById('startTroopLevel'),
+        document.getElementById('endTroopLevel'),
+        document.getElementById('troopBuff'),
+        0,
+        40
+      );
 
-      if (isNaN(start) || isNaN(end) || start < 0 || end > 40 || start >= end) {
-        document.getElementById('troopResult').textContent = 'Please enter valid level inputs for Troop Training.';
-        return;
-      }
-
-      if (buff < 0) {
-        document.getElementById('troopResult').textContent = 'Training speed buff cannot be negative.';
+      if (!validation.valid) {
+        document.getElementById('troopResult').textContent = validation.message;
         return;
       }
 
       let totalTime = 0;
       let totalCost = 0;
 
-      for (let i = start; i < end; i++) {
-        totalTime += troopTimes[i] / (1 + buff / 100);
+      for (let i = validation.start; i < validation.end; i++) {
+        totalTime += troopTimes[i] / (1 + validation.buff / 100);
         totalCost += troopCosts[i];
       }
 
-      if (discount) {
+      if (document.getElementById('troopDiscountCheckbox').checked) {
         totalCost = Math.round(totalCost * 0.85);
       }
 
+      displayResult(totalTime, totalCost, 'troopResult');
+    }
+
+    function displayResult(totalTime, totalCost, elementId) {
       const days = Math.floor(totalTime / 86400);
       const hours = Math.floor((totalTime % 86400) / 3600);
       const minutes = Math.floor((totalTime % 3600) / 60);
       const totalHours = (totalTime / 3600).toFixed(2);
 
-      document.getElementById('troopResult').innerHTML =
-        `Total Research Time: ${days}d ${hours}h ${minutes}m<br>` +
+      document.getElementById(elementId).innerHTML =
+        `Total Time: ${days}d ${hours}h ${minutes}m<br>` +
         `OR ~${totalHours} hours<br>` +
-        `Total Cost: ${totalCost.toLocaleString()} Resource`;
+        `Total Cost: ${totalCost.toLocaleString()} Resources`;
     }
 
     // Verify troop costs total for 0-40
     function verifyTroopCosts() {
-        let totalTroopCost = 0;
-for (let i = 0; i < 40; i++) {
-  totalTroopCost += troopCosts[i];
-}
-console.log(totalTroopCost);
+      let totalTroopCost = 0;
+      for (let i = 0; i < 40; i++) {
+        totalTroopCost += troopCosts[i];
+      }
+      console.log('Total troop research cost:', totalTroopCost);
     }
     verifyTroopCosts();
   </script>
